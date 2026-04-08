@@ -1,0 +1,28 @@
+= Ingress
+
+One of the way to get cluster load balancer and public IP.
+Plusserver https://docs.plusserver.com/en/container/managed-kubernetes/tutorials/lb_configuration/[load balancer docs].
+
+[,bash]
+----
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+----
+
+[,bash]
+----
+helm repo update
+----
+
+[,bash]
+----
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx --create-namespace \
+  -f ./utilities/ingress/values.yaml
+----
+
+[,bash]
+----
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx --create-namespace \
+  -f ./utilities/ingress/values.yaml
+----

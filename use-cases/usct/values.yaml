@@ -1,0 +1,5 @@
+### Sub Charts Specific Values ###
+backend:
+  enabled: true
+digital-registries-emulator:
+  enabled: true

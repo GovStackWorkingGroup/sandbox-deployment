@@ -1,0 +1,27 @@
+mysql:
+  name: "mysql"
+  replicaCount: 1
+  template:
+    labels:
+      app: "mysql"
+  containers:
+    name: "mysql"
+    image: mysql:5.7
+    imagePullPolicy: "IfNotPresent"
+  statefulset:
+    name: mysql
+    username: "admin"
+    password: ""
+    databaseName: "jwdb"
+    spec:
+      mountPath: /mnt/data
+      storage: 1Gi
+  service:
+    name: mysql
+    type: ClusterIP
+    port: 3306
+    selector:
+      app: mysql
+
+loadbalancer:
+  enabled: true

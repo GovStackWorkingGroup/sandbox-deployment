@@ -1,0 +1,17 @@
+= Sandbox page
+
+https://sandbox.govstack.global/
+
+image::images/main-page.png/[]
+
+== Useful commands
+
+[source,shell]
+----
+helm install usct ./use-cases/usct  --create-namespace --namespace usct
+----
+
+[source,shell]
+----
+helm upgrade --install usct ./use-cases/usct --create-namespace --namespace usct
+----
