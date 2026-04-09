@@ -22,3 +22,25 @@ rpc_backend:
     type: ClusterIP
     port: 8080
     targetPort: 8080
+
+frontend:
+  name: "high-school-frontend"
+  replicaCount: 1
+  labels:
+    app: "high-school-frontend"
+  template:
+    labels:
+      app: "high-school-frontend"
+  container:
+    name: high-school-frontend
+    image: ghcr.io/govstackworkinggroup/sandbox-usecase-bp-frontend:latest
+    imagePullPolicy: "Always"
+  profiles: "container"
+  service:
+    name: "frontend"
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+tls:
+  dnsNames: "bp.playground.sandbox-playground.com"
+  certificateName: "high-school-tls"

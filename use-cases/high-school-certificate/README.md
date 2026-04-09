@@ -14,39 +14,12 @@ https://github.com/GovStackWorkingGroup/sandbox-app-rpc-backend
 
 ## Useful commands
 
-### Frontend
 Helm Installation
 
-* Debug Helm Install Upgrade command for Govstack sandbox
-```
-helm upgrade bp-frontend ./frontend --install --create-namespace --namespace bp --dry-run --debug
-``````
-
 * Install chart
 ```
-helm upgrade bp-frontend ./frontend --install --create-namespace --namespace bp
+helm upgrade high-school-certificate ./use-cases/high-school-certificate --install --create-namespace --namespace high-school-certificate
 ``` 
-
-* Uninstall chart
-```
-helm uninstall bp-frontend --namespace bp
-```
-
-### Backend
-
-# Helm Installation
-
-* Debug chart
-
-```
-    helm upgrade rpc-backend ./backend --install --create-namespace --namespace rpc-backend --dry-run --debug
-```
-
-* Install chart
-
-```
-    helm upgrade rpc-backend ./backend --install --create-namespace --namespace rpc-backend
-```
 
 * Install chart with persisted database state
 
@@ -61,11 +34,4 @@ Useful for development purposes
 Note: The DB state will be flushed on every pod restart
 ```
     helm upgrade --set rpc_backend.dbPersist.flushStorageOnInit=true rpc-backend ./backend --install --create-namespace --namespace rpc-backend
-```
-
-* Uninstall chart
-
-Uninstall chart
-```
-    helm uninstall rpc-backend --namespace rpc-backend
 ```

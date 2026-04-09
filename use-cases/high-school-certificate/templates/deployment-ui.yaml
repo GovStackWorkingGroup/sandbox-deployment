@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.frontend.name }}
+  labels:
+    {{- toYaml .Values.frontend.labels | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      {{- toYaml .Values.frontend.template.labels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .Values.frontend.template.labels | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.frontend.container.name }}
+          image: "{{ .Values.frontend.container.image }}"
+          imagePullPolicy: {{ .Values.frontend.container.imagePullPolicy }}
+          ports:
+          - containerPort: 80
+            name: server
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.frontend.service.name }}
+  labels:
+    {{- toYaml .Values.frontend.labels | nindent 4 }}
+spec:
+  type: {{ .Values.frontend.service.type }}
+  ports:
+    - port: {{ .Values.frontend.service.port }}
+      targetPort: {{ .Values.frontend.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- toYaml .Values.frontend.labels | nindent 4 }}

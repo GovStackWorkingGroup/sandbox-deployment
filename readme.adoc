@@ -7,13 +7,16 @@
 
 === High School Certificate and Construction Permit
 
+Address:
+https://bp.playground.sandbox-playground.com/
+
 === Cross border payment
 
-address:
+Address:
 
 === Early warnings
 
-address:
+Address:
 
 === Unconditional social cache transfer
 
@@ -23,6 +26,12 @@ https://usct.playground.sandbox-playground.com/driver-poc/login
 == Utilities
 
 == Cluster description
+
+=== Nodes
+
+* SCS-2V8
+* SCS-2V8
+* SCS-2V4
 
 
 

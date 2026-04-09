@@ -39,7 +39,7 @@ callback:
   cidr: "0.0.0.0/0,::/0"
 
 tls:
-  dnsNames: "usct.govstack.oleksii.eu"
+  dnsNames: "usct.playground.sandbox-playground.com"
   certificateName: "usct-tls"
 
 
