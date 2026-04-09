@@ -18,14 +18,14 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.rpc_backend.service.name  }}
+                name: {{ .Values.rpc_backend.service.name  }}-service
                 port:
                   number: 8080
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.frontend.name }}
+                name: {{ .Values.frontend.service.name }}
                 port:
                   number: 80
 ---
