@@ -33,7 +33,7 @@ frontend:
       app: "high-school-frontend"
   container:
     name: high-school-frontend
-    image: ghcr.io/govstackworkinggroup/sandbox-usecase-bp-frontend:latest
+    image: ghcr.io/govstackworkinggroup/sandbox-usecase-bp-frontend:construction-school-url-fix
     imagePullPolicy: "Always"
   profiles: "container"
   service:
