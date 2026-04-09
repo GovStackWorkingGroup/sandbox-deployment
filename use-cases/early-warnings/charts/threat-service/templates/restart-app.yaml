@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
             - name: kill-pods
-              image: bitnami/kubectl:latest
+              image: bitnamilegacy/bitnami/kubectl:1.29.2-debian-12-r2
               command: ["kubectl"]
               args: ["delete", "pod", "-l", "app={{ .Values.backend.name }}", "-n", "{{ $.Release.Namespace }}"]
           restartPolicy: Never

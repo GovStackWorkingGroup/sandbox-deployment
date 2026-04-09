@@ -12,6 +12,10 @@ kafka:
           external: 9094
     autoDiscovery:
       enabled: true
+      image:
+        registry: docker.io/bitnamilegacy
+        repository: kubectl
+        tag: 1.29.2-debian-12-r2
   serviceAccount:
     create: true
   rbac:
