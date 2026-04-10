@@ -25,3 +25,33 @@ db:
 
 kafka:
   bootstrapServers: early-warning-kafka:9092
+
+tls:
+  dnsNames: "early-warnings.playground.sandbox-playground.com"
+  certificateName: "early-warnings-tls"
+
+enabled: true
+frontend:
+  name: "frontend"
+  replicaCount: 1
+  labels:
+    app: "frontend"
+  template:
+    labels:
+      app: "frontend"
+  spec:
+    container:
+      name: frontend
+      image: ghcr.io/govstackworkinggroup/sandbox-usecase-earlywarning-frontend
+      imageTag: plusserver-baseurl-s
+      imagePullPolicy: IfNotPresent
+
+  profiles: "container"
+  service:
+    name: "frontend"
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+threatsvc:
+  name: threat-service

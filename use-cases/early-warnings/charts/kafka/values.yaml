@@ -4,7 +4,7 @@ kafka:
     registry: docker.io
     repository: bitnamilegacy/kafka
   controller:
-    replicaCount: 3
+    replicaCount: 1
     automountServiceAccountToken: true
   externalAccess:
     enabled: true
@@ -36,7 +36,7 @@ kafka:
 kafkaTopicCreator:
   image:
     repository: confluentinc/cp-kafka
-    tag: 7.4.4
+    tag: latest
     pullPolicy: IfNotPresent
   kafka:
     bootstrapServer: early-warning-kafka:9092
