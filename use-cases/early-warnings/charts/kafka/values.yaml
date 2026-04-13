@@ -1,7 +1,10 @@
 enabled: true
 kafka:
+  image:
+    registry: docker.io
+    repository: bitnamilegacy/kafka
   controller:
-    replicaCount: 3
+    replicaCount: 1
     automountServiceAccountToken: true
   externalAccess:
     enabled: true
@@ -12,6 +15,10 @@ kafka:
           external: 9094
     autoDiscovery:
       enabled: true
+      image:
+        registry: docker.io/bitnamilegacy
+        repository: kubectl
+        tag: 1.29.2
   serviceAccount:
     create: true
   rbac:
@@ -29,7 +36,7 @@ kafka:
 kafkaTopicCreator:
   image:
     repository: confluentinc/cp-kafka
-    tag: 7.4.4
+    tag: latest
     pullPolicy: IfNotPresent
   kafka:
     bootstrapServer: early-warning-kafka:9092
