@@ -1,7 +1,7 @@
 # Sandbox assets
 
 ## Building blocks
-This repository includes GovStack deployments of xref:blocks/[building blocks] and https://govstack.gitbook.io/use-cases[use-cases].
+This repository includes GovStack deployments of [building blocks](blocks) and [use-cases](https://govstack.gitbook.io/use-cases).
 
 ## Landing pages
 
@@ -61,7 +61,7 @@ xref:utilities/cert-manager/notes.adoc[Deployment]
 
 ## Cluster description
 
-=== Nodes
+### Nodes
 
 * SCS-2V8
 * SCS-2V8
