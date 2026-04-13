@@ -31,7 +31,6 @@ https://usct.playground.sandbox-playground.com/driver-poc/login
 
 * SCS-2V8
 * SCS-2V8
-* SCS-2V4
-
+* SCS-2V8
 
 

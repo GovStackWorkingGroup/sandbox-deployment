@@ -27,7 +27,7 @@ kafka:
   bootstrapServers: early-warning-kafka:9092
 
 tls:
-  dnsNames: "early-warnings.playground.sandbox-playground.com"
+  dnsNames: "early-warnings.govstack.oleksii.eu"
   certificateName: "early-warnings-tls"
 
 enabled: true
@@ -55,3 +55,6 @@ frontend:
 
 threatsvc:
   name: threat-service
+
+logsvc:
+  name: log-service

@@ -14,6 +14,27 @@ spec:
     - host: {{ .Values.tls.dnsNames }}
       http:
         paths:
+          - path: /api/v1/log
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.logsvc.name }}
+                port:
+                  number: 8080
+          - path: /api/v1/overview
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.threatsvc.name }}
+                port:
+                  number: 8080
+          - path: /api/v1/broadcasts
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.threatsvc.name }}
+                port:
+                  number: 8080
           - path: /api/v1/threats
             pathType: Prefix
             backend:
