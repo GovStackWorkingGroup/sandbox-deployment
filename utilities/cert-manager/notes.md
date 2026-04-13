@@ -1,30 +1,28 @@
-= Cert manager
+# Cert manager
 
 https://cert-manager.io/docs/installation/helm/
 
 
-== Installing with Helm
+## Installing with Helm
 
 
-=== Install
+### Install
 
-[,bash]
-----
+
+```shell
 helm install example ./utilities/cert-manager/helm  --namespace cert-manager --create-namespace
-----
+```
 
-
-[,bash]
-----
+```shell
 helm dependency update
-----
 
-[,bash]
-----
+```
+
+```shell
 kubectl apply -f utilities/cert-manager/clusterissuer.yaml
-----
+```
 
-=== Install simulation
+### Install simulation
 
 helm install simulation ./../landing-pages/simulation  --create-namespace --namespace simulation
 

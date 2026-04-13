@@ -1,17 +1,16 @@
-= Sandbox page
+# Sandbox page
 
 https://sandbox.govstack.global/
 
-image::images/main-page.png/[]
+![mainPage](images/main-page.png)
 
-== Useful commands
+## Useful commands
 
-[source,shell]
-----
+
+```shell
 helm install sandbox ./landing-pages/sandbox  --create-namespace --namespace sandbox
-----
+```
 
-[source,shell]
-----
+```shell
 helm upgrade --install sandbox ./landing-pages/sandbox --create-namespace --namespace sandbox
-----
+```

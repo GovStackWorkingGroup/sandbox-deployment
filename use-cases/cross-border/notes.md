@@ -1,17 +1,16 @@
-= Cross border payment
+# Cross border payment
 
 https://cross-border.govstack.global/
 
-image::images/main-page.png/[]
+![mainPage](images/main-page.png)
 
-== Useful commands
+## Useful commands
 
-[source,shell]
-----
+```shell
 helm install cross-border ./use-cases/cross-border  --create-namespace --namespace cross-border
-----
 
-[source,shell]
-----
+```
+
+```shell
 helm upgrade --install cross-border ./use-cases/cross-border --create-namespace --namespace cross-border
-----
+```
