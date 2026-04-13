@@ -1,0 +1,72 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-http
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.tls.dnsNames }}
+      secretName: {{ .Values.tls.certificateName }}
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.tls.dnsNames }}
+      http:
+        paths:
+          - path: /api/v1/log
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.logsvc.name }}
+                port:
+                  number: 8080
+          - path: /api/v1/overview
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.threatsvc.name }}
+                port:
+                  number: 8080
+          - path: /api/v1/broadcasts
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.threatsvc.name }}
+                port:
+                  number: 8080
+          - path: /api/v1/threats
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.threatsvc.name }}
+                port:
+                  number: 8080
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.backend.name }}
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.frontend.name }}-service
+                port:
+                  number: 80
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.tls.certificateName }}
+spec:
+  dnsNames:
+    - {{ .Values.tls.dnsNames }}
+  secretName: {{ .Values.tls.certificateName }}
+  issuerRef:
+    name: letsencrypt-http
+    kind: ClusterIssuer
