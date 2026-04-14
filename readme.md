@@ -28,8 +28,6 @@ xref:use-cases/high-school-certificate/README.md[Deployment]
 ### Cross border payment
 https://cross-border.playground.sandbox-playground.com/
 
-xref:use-cases/cross-border/notes.adoc[Deployment]
-
 [Deployment](use-cases/cross-border/notes.md)
 
 
