@@ -7,7 +7,7 @@ template:
     app: "sandbox"
 containers:
   name: sandbox
-  image: ghcr.io/govstackworkinggroup/sandbox-usecase-usct-frontend:roles-fix-3
+  image: ghcr.io/govstackworkinggroup/sandbox-landingpage:0.0.1
   imagePullPolicy: "Always"
 profiles: "container"
 service:
@@ -16,5 +16,5 @@ service:
   port: 80
   targetPort: 80
 tls:
-  dnsNames: "usct.playground.sandbox-playground.com"
+  dnsNames: "sandbox.govstack.global"
   certificateName: "sandbox-tls"

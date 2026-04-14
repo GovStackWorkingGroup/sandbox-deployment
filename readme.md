@@ -11,9 +11,9 @@ https://sandbox.govstack.global/
 [Sources](landing-pages/sandbox/notes.md)
 
 ### Simulation
-https://usct.playground.sandbox-playground.com/
+https://simulation.govstack.global/
 
-[Sources](use-cases/usct/notes.md)
+[Sources](landing-pages/simulation/notes.md)
 
 ## Demo/use cases
 

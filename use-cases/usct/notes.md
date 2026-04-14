@@ -1,4 +1,4 @@
-# Sandbox page
+# Unconditional social cash transfer
 
 https://sandbox.govstack.global/
 
