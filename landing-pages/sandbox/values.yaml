@@ -7,7 +7,7 @@ template:
     app: "sandbox"
 containers:
   name: sandbox
-  image: ghcr.io/govstackworkinggroup/sandbox-landingpage:0.0.1
+  image: ghcr.io/govstackworkinggroup/sandbox-landingpage:latest
   imagePullPolicy: "Always"
 profiles: "container"
 service:
