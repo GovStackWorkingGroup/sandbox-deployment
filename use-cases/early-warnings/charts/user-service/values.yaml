@@ -27,7 +27,7 @@ kafka:
   bootstrapServers: early-warning-kafka:9092
 
 tls:
-  dnsNames: "early-warnings.govstack.oleksii.eu"
+  dnsNames: "early-warning.sandbox.govstack.global"
   certificateName: "early-warnings-tls"
 
 enabled: true
@@ -43,7 +43,7 @@ frontend:
     container:
       name: frontend
       image: ghcr.io/govstackworkinggroup/sandbox-usecase-earlywarning-frontend
-      imageTag: plusserver-baseurl-s
+      imageTag: latest
       imagePullPolicy: IfNotPresent
 
   profiles: "container"
