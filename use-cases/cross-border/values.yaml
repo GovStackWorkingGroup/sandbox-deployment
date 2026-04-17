@@ -7,7 +7,7 @@ template:
     app: "cross-border"
 containers:
   name: frontend
-  image: ghcr.io/govstackworkinggroup/sandbox-usecase-cross-border-payment:0.0.1
+  image: ghcr.io/govstackworkinggroup/sandbox-usecase-cross-border-payment:latest
   imagePullPolicy: "Always"
 profiles: "container"
 service:
@@ -16,5 +16,5 @@ service:
   port: 80
   targetPort: 80
 tls:
-  dnsNames: "cross-border.sandbox.govstack.global"
+  dnsNames: "cross-border-pay.sandbox.govstack.global"
   certificateName: "cross-border-tls"

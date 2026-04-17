@@ -19,27 +19,26 @@ https://simulation.govstack.global/
 
 ### High School Certificate and Construction Permit
 
-https://bp.playground.sandbox-playground.com/
+https://ux-demo.sandbox.govstack.global/
 
-xref:use-cases/high-school-certificate/README.md[Deployment]
 
 [Deployment](use-cases/high-school-certificate/README.md)
 
 ### Cross border payment
-https://cross-border.playground.sandbox-playground.com/
+https://cross-border-pay.sandbox.govstack.global/
 
 [Deployment](use-cases/cross-border/notes.md)
 
 
 ### Early warnings
-https://early-warnings.playground.sandbox-playground.com/
+https://early-warning.sandbox.govstack.global/
 
 [Deployment](use-cases/early-warnings/README.md)
 
 
 ### Unconditional social cache transfer
 
-https://usct.playground.sandbox-playground.com/driver-poc/login
+https://usct.sandbox.govstack.global/driver-poc/login
 
 [Deployment](use-cases/usct/notes.md)
 
@@ -65,5 +64,7 @@ xref:utilities/cert-manager/notes.adoc[Deployment]
 * SCS-2V8
 * SCS-2V8
 
+
+https://www.plusserver.com/en/product/managed-kubernetes/
 
 

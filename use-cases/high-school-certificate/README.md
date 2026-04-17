@@ -3,10 +3,10 @@ The Construction permit Use Case is created with the idea of proposing a way for
 permits for construction, renovation or demolition projects from the national government easily
 via a streamlined process.
 
-[Live Demo](https://bp.playground.sandbox-playground.com/housing/construction-permit)
+[Live Demo](https://ux-demo.sandbox.govstack.global/)
 
 ## Implementation Frontend
-https://github.com/GovStackWorkingGroup/sandbox-usecase-bp-frontend
+https://github.com/GovStackWorkingGroup/sandbox-usecase-constructionpermit-schoolcertificate-frontend
 
 ## Implementation Backend
 https://github.com/GovStackWorkingGroup/sandbox-app-rpc-backend

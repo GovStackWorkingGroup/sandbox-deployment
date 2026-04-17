@@ -39,7 +39,7 @@ callback:
   cidr: "0.0.0.0/0,::/0"
 
 tls:
-  dnsNames: "usct.playground.sandbox-playground.com"
+  dnsNames: "usct.sandbox.govstack.global"
   certificateName: "usct-tls"
 
 
@@ -54,7 +54,7 @@ ui:
   container:
     name: ui
     image: ghcr.io/govstackworkinggroup/sandbox-usecase-usct-frontend
-    imageTag: custom-domain
+    imageTag: latest
     imagePullPolicy: IfNotPresent
   profiles: "ui"
 frontsvc:
