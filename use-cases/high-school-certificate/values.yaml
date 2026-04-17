@@ -33,7 +33,7 @@ frontend:
       app: "high-school-frontend"
   container:
     name: high-school-frontend
-    image: ghcr.io/govstackworkinggroup/sandbox-usecase-bp-frontend:construction-school-url-fix
+    image: ghcr.io/govstackworkinggroup/sandbox-usecase-constructionpermit-schoolcertificate-frontend:latest
     imagePullPolicy: "Always"
   profiles: "container"
   service:
@@ -42,5 +42,5 @@ frontend:
     port: 80
     targetPort: 80
 tls:
-  dnsNames: "bp.playground.sandbox-playground.com"
+  dnsNames: "ux-demo.sandbox.govstack.global"
   certificateName: "high-school-tls"
