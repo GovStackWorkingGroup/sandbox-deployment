@@ -46,7 +46,6 @@ https://usct.sandbox.govstack.global/driver-poc/login
 ## Utilities
 
 ### Cert manager
-xref:utilities/cert-manager/notes.adoc[Deployment]
 
 [Deployment](utilities/cert-manager/notes.md)
 
@@ -54,7 +53,6 @@ xref:utilities/cert-manager/notes.adoc[Deployment]
 ### Ingress
 
 [Deployment](utilities/ingress/notes.md)
-
 
 ## Cluster description
 
