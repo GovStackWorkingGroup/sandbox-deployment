@@ -21,7 +21,7 @@ https://products.mifos.org/mifos-gazelle/
 
 ### Namespaces
 
-#### cross-border-mifos
+#### Cross border mifos
 
 #### cross-border-pay
 
