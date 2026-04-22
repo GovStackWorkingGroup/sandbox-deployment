@@ -2,8 +2,8 @@
 The Construction permit Use Case is created with the idea of proposing a way for individuals and businesses to acquire
 permits for construction, renovation or demolition projects from the national government easily
 via a streamlined process.
-
 [Live Demo](https://ux-demo.sandbox.govstack.global/)
+
 
 ## Implementation Frontend
 https://github.com/GovStackWorkingGroup/sandbox-usecase-constructionpermit-schoolcertificate-frontend
