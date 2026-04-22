@@ -18,3 +18,15 @@ helm upgrade --install cross-border ./use-cases/cross-border --create-namespace 
 ## Mifos Gazell
 
 https://products.mifos.org/mifos-gazelle/
+
+### Namespaces
+
+#### cross-border-mifos
+
+#### cross-border-pay
+
+#### infra
+
+#### mastercard-demo
+
+#### paymenthub
