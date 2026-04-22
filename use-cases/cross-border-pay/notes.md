@@ -14,3 +14,17 @@ helm install cross-border-pay ./use-cases/cross-border-pay  --create-namespace -
 ```shell
 helm upgrade --install cross-border-pay ./use-cases/cross-border-pay --create-namespace --namespace cross-border-pay
 ```
+
+## Mifos Gazell
+
+https://products.mifos.org/mifos-gazelle/
+
+### Namespaces
+
+#### Cross border mifos
+
+#### infra
+
+#### mastercard-demo
+
+#### paymenthub
