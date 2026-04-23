@@ -1,0 +1,350 @@
+# Declare global configurations
+global:
+  kibanaEnabled: true
+
+############### Kafka and Zookeeper ####################
+## Reference: https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml
+kafka:
+  enabled: true
+  fullnameOverride: "kafka"
+  image:
+    registry: docker.io
+    repository: bitnamilegacy/kafka
+    tag: 3.6.0-debian-11-r0 
+  persistence:
+    enabled: false
+  externalAccess:
+    enabled: false
+
+  broker:
+    replicaCount: 1
+    heapOpts: "-Xms64M -Xmx256M"
+    resources: 
+      limits:
+        memory: "500Mi" # Using Mi for clarity and consistency
+        cpu: "500m"
+      requests: 
+        memory: "64Mi" # Using Mi for clarity and consistency
+        cpu: "100m"
+  
+  extraConfig: |
+    auto.create.topics.enable=true
+    offsets.topic.replication.factor=1
+    transaction.state.log.replication.factor=1
+    transaction.state.log.min.isr=1
+    default.replication.factor=1
+    min.insync.replicas=1
+
+  # need this to ensure redpanda-console can connect to kafka
+  listeners:
+    client:
+      protocol: PLAINTEXT
+      # Explicitly advertise using the Kafka service name
+      advertisedListeners: PLAINTEXT://kafka:9092 
+    interBroker:
+      protocol: PLAINTEXT
+      # For a single-node setup, interBroker can also point to client.
+      advertisedListeners: PLAINTEXT://kafka:9092 
+
+  extraEnvVars:
+    - name: KAFKA_CFG_ADVERTISED_LISTENERS
+      value: PLAINTEXT://kafka:9092
+    # - name: KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
+    #   value: "1"
+    # - name: KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR
+    #   value: "1"
+    # - name: KAFKA_CFG_DEFAULT_REPLICATION_FACTOR
+    #   value: "1"
+    # - name: KAFKA_CFG_MIN_INSYNC_REPLICAS
+    #   value: "1"
+
+  auth:
+    enabled: false
+    clientProtocol: plaintext
+
+  kraft:
+    enabled: false
+
+  ## https://github.com/bitnami/charts/blob/main/bitnami/zookeeper/values.yaml
+  zookeeper:
+    enabled: true
+    persistence:
+      enabled: false
+    image:
+      registry: docker.io
+      repository: bitnamilegacy/zookeeper
+      tag: 3.9.1-debian-11-r1
+    fullnameOverride: "zookeeper"
+    heapOpts: "-Xms64M -Xmx256M"
+
+    resources: 
+      limits:
+        memory: "256Mi" # Using Mi for clarity and consistency
+        cpu: "200m"
+      requests: 
+        memory: "64Mi" # Using Mi for clarity and consistency
+        cpu: "50m"
+    #replicaCount: 1   
+
+  controller:
+    replicaCount: 0
+
+  ## Kafka provisioning
+  provisioning:
+    enabled: true
+    numPartitions: 1
+    replicationFactor: 1
+
+    topics:
+      - name: __consumer_offsets
+        partitions: 50
+        replicationFactor: 1    
+      - name: KAFKA_AUDITS_TOPIC
+        value: audits
+      - name: KAFKA_LOGS_TOPIC
+        value: logs
+      - name: AccountLookupBcRequests
+        value: AccountLookupBcRequests
+      - name: AccountLookupBcEvents
+        value: AccountLookupBcEvents
+      - name: AccountLookupBcResponses
+        value: AccountLookupBcResponses
+      - name: AccountLookupBcErrors
+        value: AccountLookupBcErrors
+      - name: OperatorBcErrors
+        value: OperatorBcErrors
+      - name: QuotingBcErrors
+        value: QuotingBcErrors
+      - name: QuotingBcEvents
+        value: QuotingBcEvents
+      - name: QuotingBcRequests
+        value: QuotingBcRequests
+      - name: SettlementsBcRequests
+        value: SettlementsBcRequests
+      - name: TransfersBcErrors
+        value: TransfersBcErrors
+      - name: TransfersBcEvents
+        value: TransfersBcEvents
+      - name: TransfersBcRequests
+        value: TransfersBcRequests
+      - name: SettlementsBcEvents
+        value: SettlementsBcEvents
+      - name: SettlementsBcCommands
+        value: SettlementsBcCommands
+      - name: PlatformConfigurationBcEvents
+        value: PlatformConfigurationBcEvents
+      - name: TransfersBcTimeouts
+        value: TransfersBcTimeouts
+      - name: ParticipantsBcEvents
+        value: ParticipantsBcEvents
+      - name: SchedulingBcCommands
+        value: SchedulingBcCommands
+      - name: SchedulingBcEvents
+        value: SchedulingBcEvents
+      - name: SecurityBcAuthorizationEvents
+        value: SecurityBcAuthorizationEvents
+      - name: SecurityBcEvents
+        value: SecurityBcEvents
+      - name: zeebe-export
+        value: zeebe-export
+
+    nodeSelector: {}
+    tolerations: []
+    waitForKafka: true
+############### Kafka and Zookeeper ####################
+
+############### RedPanda Console for Kafka  ####################
+# https://artifacthub.io/packages/helm/redpanda-data/console?modal=values
+# redpanda kakfa console config
+
+redpanda-console:
+  enabled: true
+  fullnameOverride: rpconsole
+
+  console:
+    config:
+      kafka:
+        brokers:
+          - kafka:9092
+
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: redpanda-console.mifos.gazelle.localhost
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+
+############### MongoDB  ####################
+mongodb:
+  enabled: true
+  persistence:
+    enabled: false
+  # image:
+  #   tag: 7.0
+
+  fullnameOverride: mongodb
+  settings:
+    rootUsername: root
+    rootPassword: mongoDbPas42
+    
+  extraEnv:
+    - name: MONGO_INITDB_ROOT_USERNAME
+      value: "root"
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      value: "mongoDbPas42"
+
+############### Mongo Express ####################
+# mongo express config
+mongo-express:
+  fullnameOverride: mongo-express
+  enabled: true
+
+  # image:
+  #   tag: 1.0.0
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: mongoexpress.mifos.gazelle.localhost
+        paths:
+          - /
+
+  mongodbEnableAdmin: true
+  mongodbAdminUsername: root
+  mongodbAdminPassword: mongoDbPas42
+
+  basicAuthUsername: admin
+  basicAuthPassword: admin
+
+  extraEnv:
+    - name: ME_CONFIG_MONGODB_URL
+      value: "mongodb://root:mongoDbPas42@mongodb:27017/"
+
+############### Redis  ####################
+## Reference: https://github.com/bitnami/charts/blob/main/bitnami/redis/values.yaml
+redis:
+  enabled: true
+  image:
+    repository: bitnamilegacy/redis
+  fullnameOverride: redis
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    disableCommands: []
+    persistence:
+      enabled: false
+
+############### Elasticsearch and Kibana  ####################
+elasticsearch:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnamilegacy/elasticsearch
+    tag: 8.10.4-debian-11-r0
+  sysctlImage:
+    registry: docker.io
+    repository: bitnamilegacy/os-shell
+    tag: 11-debian-11-r90
+
+  security:
+    elasticPassword: elasticSearchPas42
+    tls:
+      restEncryption: false
+
+  # coordinating:
+  #   replicaCount: 1
+
+  master:
+    masterOnly: false
+    replicaCount: 1
+    persistence:
+      enabled: false
+    env:
+      - name: ES_JAVA_OPTS
+        # Set Xmx and Xms to the same value for stability. 768m is a common low-end starting point.
+        value: "-Xms256m -Xmx256m -XX:+HeapDumpOnOutOfMemoryError" 
+    # Define resources for this single 'all-in-one' master node
+    resources:
+      requests:
+        memory: "128Mi"  # Request enough memory for the heap + overhead
+        cpu: "100m"
+      # limits:
+      #   memory: "800Mi" # Allow some buffer over the heap for OS page cache and other overhead
+      #   cpu: "41m" # 
+
+
+  data:
+    replicaCount: 0
+  coordinating:
+    replicaCount: 0
+  ingest:
+    replicaCount: 0
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: elasticsearch.mifos.gazelle.localhost
+    tls:
+      - enabled: false
+
+  kibana:
+    image:
+      registry: docker.io
+      repository: bitnamilegacy/kibana
+      tag: 8.10.4-debian-11-r0
+    persistence:
+      enabled: false
+    env:
+      - name: NODE_OPTIONS
+        value: "--max-old-space-size=256" # Set Kibana's JS heap to 256MB 
+
+    resources:
+      requests:
+        memory: "400Mi"  # Request enough memory for the heap + overhead
+        cpu: "400m"
+      limits:
+        memory: "800Mi" # Allow some buffer over the heap for OS page cache and other overhead
+        cpu: "400m" # 
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hostname: kibana.mifos.gazelle.localhost
+      tls:
+        enabled: false
+
+############### MySQL  ####################
+mysql:
+  fullnameOverride: "mysql"
+  enabled: true
+  auth:
+    database: "tenants"
+    username: "mifos"
+    password: "password"
+    rootPassword: "mysqlpw"
+    # rootPassword: "ethieTieCh8ahv"
+  image:
+    tag: "5.7"
+    repository: bitnamilegacy/mysql
+    debug: false
+  initdbScripts:
+    setup.sql: |-
+      # CREATE DATABASE IF NOT EXISTS messagegateway;
+      # CREATE DATABASE IF NOT EXISTS `identity_account_mapper`;
+      # CREATE DATABASE IF NOT EXISTS `voucher_management`;
+      # CREATE DATABASE IF NOT EXISTS `fineract_tenants`;
+      # CREATE DATABASE IF NOT EXISTS `fineract_default`;
+      # CREATE DATABASE IF NOT EXISTS `greenbank`;
+      # CREATE DATABASE IF NOT EXISTS `bluebank`;
+      # GRANT ALL PRIVILEGES ON messagegateway.* TO 'mifos';
+      # GRANT ALL PRIVILEGES ON `identity_account_mapper`.* TO 'mifos';
+      # GRANT ALL PRIVILEGES ON `voucher_management`.* TO 'mifos';
+      # GRANT ALL PRIVILEGES ON `fineract_tenants`.* TO 'mifos';
+      # GRANT ALL PRIVILEGES ON `fineract_default`.* TO 'mifos';
+      # GRANT ALL PRIVILEGES ON `greenbank`.* TO 'mifos';
+      # GRANT ALL PRIVILEGES ON `bluebank`.* TO 'mifos';
+      GRANT ALL ON *.* TO 'root'@'%';
+
