@@ -19,6 +19,9 @@ helm upgrade --install cross-border ./use-cases/cross-border --create-namespace 
 
 https://products.mifos.org/mifos-gazelle/
 
+
+https://github.com/openMF/mifos-gazelle/tree/PHEE-359
+
 ### Namespaces
 
 #### Cross border mifos
