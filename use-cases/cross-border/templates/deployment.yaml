@@ -17,17 +17,36 @@ spec:
       containers:
         - name: {{ .Values.containers.name }}
           image: "{{ .Values.containers.image }}"
-          imagePullPolicy: {{ .Values.containers.imagePullPolicy }}
           ports:
           - containerPort: 80
             name: server
-          resources:
-            limits:
-              cpu: "500m"
-              memory: 1Gi
-            requests:
-              cpu: "200m"
-              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.backend.name }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- toYaml .Values.template.labels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .Values.template.labels | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.backend.name }}
+          image: "{{ .Values.backend.containers.image }}"
+          ports:
+            - containerPort: 8080
+              name: server
+          env:
+            - name: SIGNATURE_PRIVATE_KEY
+              value: "{{ .Values.backend.signature }}"
+
 ---
 apiVersion: v1
 kind: Service
@@ -40,6 +59,23 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- toYaml .Values.labels | nindent 4 }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.backend.name }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  type: {{ .Values.backend.service.type }}
+  ports:
+    - port: {{ .Values.backend.service.port }}
+      targetPort: {{ .Values.backend.service.targetPort }}
       protocol: TCP
       name: http
   selector:
@@ -62,6 +98,13 @@ spec:
     - host: {{ .Values.tls.dnsNames }}
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.backend.name }}
+                port:
+                  number: 8080
           - path: /
             pathType: Prefix
             backend:
