@@ -8,13 +8,21 @@ template:
 containers:
   name: frontend
   image: ghcr.io/govstackworkinggroup/sandbox-usecase-cross-border-payment:latest
-  imagePullPolicy: "Always"
 profiles: "container"
 service:
   name: "cross-border"
   type: ClusterIP
   port: 80
   targetPort: 80
+backend:
+  name: "cross-border-backend"
+  containers:
+    image: ghcr.io/govstackworkinggroup/sandbox-usecase-cross-border-payment-backend:latest
+  signature: "placeholdertext"
+  service:
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
 tls:
   dnsNames: "cross-border-pay.sandbox.govstack.global"
   certificateName: "cross-border-tls"

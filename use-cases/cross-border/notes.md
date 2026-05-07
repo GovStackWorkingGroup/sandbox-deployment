@@ -7,10 +7,11 @@ https://cross-border.govstack.global/
 ## Useful commands
 
 ```shell
-helm install cross-border ./use-cases/cross-border  --create-namespace --namespace cross-border
+helm install cross-border-pay ./use-cases/cross-border  --create-namespace --namespace cross-border-pay
 
 ```
 
 ```shell
-helm upgrade --install cross-border ./use-cases/cross-border --create-namespace --namespace cross-border
+helm upgrade --install cross-border-pay ./use-cases/cross-border --create-namespace --namespace cross-border-pay
 ```
+
