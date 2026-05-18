@@ -14,4 +14,3 @@ helm install cross-border-pay ./use-cases/cross-border  --create-namespace --nam
 ```shell
 helm upgrade --install cross-border-pay ./use-cases/cross-border --create-namespace --namespace cross-border-pay
 ```
-
