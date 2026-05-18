@@ -1,76 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}
-  labels:
-    {{- toYaml .Values.labels | nindent 4 }}
-spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      {{- toYaml .Values.template.labels | nindent 6 }}
-  template:
-    metadata:
-      labels: 
-        {{- toYaml .Values.template.labels | nindent 8 }}
-    spec:
-      containers:
-        - name: {{ .Values.containers.name }}
-          image: "{{ .Values.containers.image }}"
-          ports:
-          - containerPort: 80
-            name: server
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: {{ .Values.backend.name }}
-  labels:
-    {{- toYaml .Values.labels | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- toYaml .Values.template.labels | nindent 6 }}
+      app: {{ .Values.backend.name }}
   template:
     metadata:
       labels:
-        {{- toYaml .Values.template.labels | nindent 8 }}
+        app: {{ .Values.backend.name }}
     spec:
       containers:
         - name: {{ .Values.backend.name }}
           image: "{{ .Values.backend.containers.image }}"
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
               name: server
           env:
             - name: SIGNATURE_PRIVATE_KEY
               value: "{{ .Values.backend.signature }}"
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.service.name }}
-  labels:
-    {{- toYaml .Values.labels | nindent 4 }}
-spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
-      protocol: TCP
-      name: http
-  selector:
-    {{- toYaml .Values.labels | nindent 4 }}
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.backend.name }}
   labels:
-    {{- toYaml .Values.labels | nindent 4 }}
+    app: {{ .Values.backend.name }}
 spec:
   type: {{ .Values.backend.service.type }}
   ports:
@@ -79,49 +37,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- toYaml .Values.labels | nindent 4 }}
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx-ingress
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-http
-spec:
-  tls:
-    - hosts:
-        - {{ .Values.tls.dnsNames }}
-      secretName: {{ .Values.tls.certificateName }}
-  ingressClassName: nginx
-  rules:
-    - host: {{ .Values.tls.dnsNames }}
-      http:
-        paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Values.backend.name }}
-                port:
-                  number: 8080
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Values.service.name }}
-                port:
-                  number: 80
----
-
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: {{ .Values.name }}
-spec:
-  dnsNames:
-    - {{ .Values.tls.dnsNames }}
-  secretName: {{ .Values.tls.certificateName }}
-  issuerRef:
-    name: letsencrypt-http
-    kind: ClusterIssuer
+    app: {{ .Values.backend.name }}

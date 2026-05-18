@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.ui.name }}
+
+spec:
+  replicas: {{ .Values.ui.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.ui.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.ui.name }}
+    spec:
+      containers:
+        - name: {{ .Values.ui.container.name }}
+          image: "{{ .Values.ui.container.image }}"
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+            name: server
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.frontsvc.name }}
+  labels:
+    app: {{ .Values.frontsvc.name }}
+spec:
+  type: {{ .Values.frontsvc.type }}
+  ports:
+    - port: {{ .Values.frontsvc.port }}
+      targetPort: {{ .Values.frontsvc.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ .Values.frontsvc.name }}
